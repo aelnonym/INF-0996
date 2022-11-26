@@ -5,51 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INF_0996"
         mc:Ignorable="d"
-        Title="Janela Principal - AppInf0996" Height="1024" Width="768" WindowState="Maximized">
-    <Grid>
+        Title="Player - AppInf0996" Height="900" Width="1650">
+
+    <!-- Funções -->
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" CanExecute="Open_CanExecute" Executed="Open_Executed" />
+        <CommandBinding Command="MediaCommands.Play" CanExecute="Play_CanExecute" Executed="Play_Executed" />
+        <CommandBinding Command="MediaCommands.Pause" CanExecute="Pause_CanExecute" Executed="Pause_Executed" />
+    </Window.CommandBindings>
+
+    <Grid MouseWheel="Grid_MouseWheel">
+
+        <!-- Quadrado dos arquivos e do vídeo-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width=".9*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
+
+        <!-- Quadrado do vídeo e retangulo do player -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Background="#006666"/>
-        <Border Grid.Column="1" Background="#227766"/>
-        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#335577"/>
+
+        <Border Background="#535353"/> <!-- Cor quadrado do vídeo-->
+        <Border Grid.Column="1" Background="#06101A"/> <!-- Cor dos arquivos -->
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#696B7C"/>  <!-- Cor do player arquivos -->
+
+        <!-- Quadrado do player para o vídeo -->
         <StackPanel Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center">
             <TextBlock Foreground="White" FontSize="35" FontWeight="Bold" 
-            Text="Kanpinasu"
-            Name="TxtCidade"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Temperatura Hoje - 25° C"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Parcialmente Nublado"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Chuva: 25%"/>
+            Text="Escolha sua mídia"
+            Name="midia"/>
+            <MediaElement Name="mePlayer" LoadedBehavior="Manual" Stretch="None" /> <!-- Player -->
         </StackPanel>
+
+
+        <!-- Retangulo de baixo do player -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" 
         HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Foreground="White" FontSize="25" Margin="0,0,20,0" Text="Máxima: 33°"/>
-            <TextBlock Foreground="White" FontSize="25" Margin="0,0,20,0" Text="Mínima: 17°"/>
-            <TextBlock Foreground="White" FontSize="25" Margin="0,0,20,0" Text="Sensação Térmica: 26°"/>
+        
+        <Button Background="Transparent" Opacity="0.5" Command="MediaCommands.Play">
+            <Image Margin="40,0,25,0" Source="https://cdn-icons-png.flaticon.com/512/109/109197.png" /> <!-- Icone player -->
+        </Button>
+        <Button Background="Transparent" Opacity="0.5" Command="MediaCommands.Pause">
+            <Image Margin="25,0,40,0" Source="https://cdn-icons-png.flaticon.com/512/61/61180.png" /> <!-- Icone player -->
+        </Button>
+
+        <StatusBarItem>
+            <TextBlock Name="lblProgressStatus">00:00:00</TextBlock> <!-- Temporizador -->
+        </StatusBarItem>
+
+        <StatusBarItem HorizontalContentAlignment="Stretch" Grid.Column="1">
+            <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" /> <!-- Tempo da mídia -->
+        </StatusBarItem>
+
+        <StatusBarItem>
+            <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1" Value="{Binding ElementName=mePlayer, Path=Volume}" /> <!-- Volume -->
+        </StatusBarItem>
+
         </StackPanel>
+        
+
+        <!-- Escolha do arquivo -->
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,0"
         VerticalAlignment="Center">
-        <Image Grid.Column="0" Grid.Row="0" Margin="20,0,20,0" Source="H:\Extecamp\ui\INF-0996\assets\nublado_p.png"/>
-        <!-- <Button Foreground="White" FontSize="25" Margin="20,20,20,20" Name="BtnCidade"
-            FontWeight="Bold" Background="#101010">Selecionar Cidade</Button> -->
         <DockPanel Grid.Column="0" Grid.Row="0">
-            <Button DockPanel.Dock="Bottom" Foreground="White" FontSize="25" Margin="20,20,20,20" Name="BtnCidade"
-            FontWeight="Bold" Background="#101010">Selecionar Cidade</Button>
+            <Button DockPanel.Dock="Bottom" Command="ApplicationCommands.Open" Foreground="White" FontSize="25" Margin="20,20,20,20" Name="BtnCidade"
+            FontWeight="Bold" Background="#101010">Arquivo</Button>
         </DockPanel>
         </StackPanel>
 
-        <MenuItem Grid.Column="1" Click="MenuSuperior_Click" x:Name="MenuSuperiorEsquerdo" Background="#1139D2"
-        VerticalAlignment="Top" HorizontalAlignment="Right" Height="50">
-            <MenuItem.Header>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-                    <Image Margin="20,0,0,0" Height="30" Source="H:\Extecamp\ui\INF-0996\assets\menu_icon.png"/>
-                </StackPanel>       
-            </MenuItem.Header>
-        </MenuItem>
     </Grid>
 </Window>
