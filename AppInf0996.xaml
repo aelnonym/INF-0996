@@ -51,6 +51,20 @@
         <Button Background="Transparent" Opacity="0.5" Command="MediaCommands.Pause">
             <Image Margin="25,0,40,0" Source="https://cdn-icons-png.flaticon.com/512/61/61180.png" /> <!-- Icone player -->
         </Button>
+    </StackPanel>
+
+        <StatusBar Grid.Row="2">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
 
         <StatusBarItem>
             <TextBlock Name="lblProgressStatus">00:00:00</TextBlock> <!-- Temporizador -->
@@ -60,11 +74,13 @@
             <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" /> <!-- Tempo da mídia -->
         </StatusBarItem>
 
-        <StatusBarItem>
+        <StatusBarItem Grid.Column="2">
             <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1" Value="{Binding ElementName=mePlayer, Path=Volume}" /> <!-- Volume -->
         </StatusBarItem>
 
-        </StackPanel>
+    </StatusBar>
+
+        
         
 
         <!-- Escolha do arquivo -->
