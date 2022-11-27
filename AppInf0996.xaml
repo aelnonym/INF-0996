@@ -33,11 +33,11 @@
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#696B7C"/>  <!-- Cor do player arquivos -->
 
         <!-- Quadrado do player para o vídeo -->
-        <StackPanel Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center">
+        <StackPanel Grid.Column="1" Margin="40,0,40,40" VerticalAlignment="Center">
             <TextBlock Foreground="White" FontSize="35" FontWeight="Bold" 
             Text="Escolha sua mídia"
             Name="midia"/>
-            <MediaElement Name="mePlayer" LoadedBehavior="Manual" Stretch="None" /> <!-- Player -->
+            <MediaElement Name="mePlayer" LoadedBehavior="Manual" Stretch="Uniform" /> <!-- Player -->
         </StackPanel>
 
 
